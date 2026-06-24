@@ -1,0 +1,21 @@
+% =====================================================================
+%  chapters/body/02.tex  --  second body chapter
+% ---------------------------------------------------------------------
+%  Demonstrates pulling a table in from the tables/ folder. Keep the
+%  table body in tables/<name>.tex and \input it where you discuss it;
+%  reference it dynamically with \tabref{<label>}.
+% =====================================================================
+\chapter{Literature Review}
+\label{chap:literature}
+
+Discuss the relevant literature here. Each table and figure must be
+referred to and discussed in the running text.
+
+\tabref{tab:return_summary_statistics} reports illustrative summary
+statistics for the asset universe.
+
+% Pulls in tables/table_01_return_summary_statistics.tex
+\input{tables/table_01_return_summary_statistics}
+
+Interpret the table here. Note how the caption appears in the List of
+Tables, while the source/note underneath does not.

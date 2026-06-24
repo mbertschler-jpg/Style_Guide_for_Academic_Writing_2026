@@ -1,0 +1,51 @@
+% =====================================================================
+%  chapters/04_appendix.tex  --  APPENDIX
+% ---------------------------------------------------------------------
+%  Copious supporting material that is important but not essential for
+%  understanding the main text (LBS v6.1, §3.9). From here on, floats are
+%  renumbered as Table A1, Figure A1, ... and sections as A1, A2, ...
+%  NOTE: For theses, interview transcripts / analysis details are NOT
+%  placed here; submit them separately to your assessors in digital form.
+% =====================================================================
+\clearpage
+\phantomsection
+\markboth{Appendix}{Appendix}
+
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\theHfigure}{appendix.figure.A\arabic{figure}}
+\renewcommand{\theHtable}{appendix.table.A\arabic{table}}
+\renewcommand{\thesection}{A\arabic{section}}
+\renewcommand{\thesubsection}{A\arabic{section}.\arabic{subsection}}
+
+\addchap{Appendix}
+\label{app:appendix}
+
+\section{Supplementary Material}
+\label{app:supplementary}
+
+Place additional material here. Floats in this part are labelled with an
+\enquote{A} prefix, for example \tabref{tab:appendix-example}.
+
+\begin{table}[H]
+\caption{Supplementary results}
+\label{tab:appendix-example}
+\centering
+\normalsize
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Specification & Observations & $R^2$ \\
+\midrule
+Baseline      & 1{,}024 & 0.41 \\
+Robustness    & 1{,}024 & 0.39 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\apanote{Significance markers and further diagnostics can be added here, e.g.\ \textcolor{black}{***} for the 1\% level.}
+\end{table}

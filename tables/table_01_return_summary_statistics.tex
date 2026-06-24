@@ -1,0 +1,26 @@
+\begin{table}[H]
+\caption{Return summary statistics}
+\label{tab:return_summary_statistics}
+\centering
+\normalsize
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}lccccccccccc@{}}
+\toprule
+Series & AvgDaily & StdDaily & AvgAnnualized & StdAnnualized & ADF & Q(10) & Q(40) & Q(70) & ARCH(1) & ARCH(3) & J-B \\
+\midrule
+\gls{BTC} & 0.001643 & 0.036458 & 0.599560 & 0.696535 & -12.887\textcolor{blue}{***} & 19.005\textcolor{blue}{**} & 55.845\textcolor{blue}{**} & 98.651\textcolor{blue}{**} & 53.811\textcolor{blue}{***} & 59.736\textcolor{blue}{***} & 6712.818\textcolor{blue}{***} \\
+\gls{ETH} & 0.001958 & 0.045711 & 0.714588 & 0.873305 & -13.067\textcolor{blue}{***} & 28.094\textcolor{blue}{***} & 60.608\textcolor{blue}{**} & 82.932 & 53.684\textcolor{blue}{***} & 63.618\textcolor{blue}{***} & 4318.382\textcolor{blue}{***} \\
+\gls{T-bill} & 0.000065 & 0.000054 & 0.023732 & 0.001036 & -0.858 & 26077.285\textcolor{blue}{***} & 103316.424\textcolor{blue}{***} & 178237.507\textcolor{blue}{***} & 2609.284\textcolor{blue}{***} & 2607.287\textcolor{blue}{***} & 245.982\textcolor{blue}{***} \\
+\gls{USDC} & 0.000004 & 0.003144 & 0.001438 & 0.060058 & -16.989\textcolor{blue}{***} & 407.813\textcolor{blue}{***} & 596.338\textcolor{blue}{***} & 681.316\textcolor{blue}{***} & 319.677\textcolor{blue}{***} & 319.774\textcolor{blue}{***} & 195123.017\textcolor{blue}{***} \\
+\gls{USDT} & 0.000003 & 0.003813 & 0.001204 & 0.072840 & -17.998\textcolor{blue}{***} & 411.664\textcolor{blue}{***} & 545.837\textcolor{blue}{***} & 586.557\textcolor{blue}{***} & 596.349\textcolor{blue}{***} & 718.371\textcolor{blue}{***} & 469065.016\textcolor{blue}{***} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\apanote{Following \textcite{ko2024portfolio}, the table reports summary statistics and diagnostic tests for the underlying risky and reserve return series. ADF denotes the Augmented Dickey--Fuller test for unit-root behavior \parencite{cheung1995lag}. $Q(10)$, $Q(40)$, and $Q(70)$ denote Ljung--Box tests for serial correlation up to the respective lag orders. ARCH(1) and ARCH(3) denote Lagrange Multiplier tests for conditional heteroskedasticity \parencite{engle1982autoregressive}; and J--B denotes the Jarque--Bera test for normality. The sample covers 2017-11-09 to 2025-01-01 and includes between 2,278 and 2,611 observations, depending on data availability.
+
+* Significance level for 10\%.
+
+** Significance level for 5\%.
+
+*** Significance level for 1\%.}
+\end{table}

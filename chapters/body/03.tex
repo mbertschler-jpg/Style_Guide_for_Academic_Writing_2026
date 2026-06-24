@@ -1,0 +1,22 @@
+% =====================================================================
+%  chapters/body/03.tex  --  third body chapter
+% ---------------------------------------------------------------------
+%  Demonstrates including a figure from the figures/ folder. Drop the
+%  image (pdf/png/jpg) into figures/ and \includegraphics it inside a
+%  figure float; reference it dynamically with \figref{<label>}.
+% =====================================================================
+\chapter{Analysis}
+\label{chap:analysis}
+
+The asset price and return dynamics are shown in
+\figref{fig:asset_price_return_panels}.
+
+\begin{figure}[H]
+\caption{Asset price and return panels}
+\label{fig:asset_price_return_panels}
+\centering
+\includegraphics[width=0.85\textwidth]{figure_05_asset_price_return_panels}
+\source{Own illustration based on the underlying market data.}
+\end{figure}
+
+Discuss the figure here, then continue your analysis.

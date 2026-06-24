@@ -1,0 +1,186 @@
+% =====================================================================
+%  template_system/layout.sty
+% ---------------------------------------------------------------------
+%  Page geometry, header/footer, page-numbering logic (digital vs
+%  printed), table-of-contents depth and the auto-generated back-matter
+%  lists (References, Figures, Tables, Abbreviations).
+%  Loaded AFTER packages.sty. Reads the \ifdigital flag from config.tex.
+%  STUDENTS DO NOT NEED TO EDIT THIS FILE.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{template_system/layout}[2026/01/01 ULI layout]
+
+% ---------------------------------------------------------------------
+%  Geometry  (LBS v6.1, §4.2d-e)
+% ---------------------------------------------------------------------
+%    Margins : left/right 2.5 cm, top 3.0 cm, bottom 2.0 cm
+%    Header  : 1.25 cm from the top edge
+%    Footer  : 1.25 cm from the bottom edge
+%
+%  IMPORTANT: the page side (one/two-sided) is selected FIRST, because
+%  \KOMAoptions{twoside=...} recomputes the KOMA type area. geometry is
+%  loaded AFTERWARDS so that our explicit margins/footskip are the ones
+%  that take effect.
+
+% ---------------------------------------------------------------------
+%  Digital vs. printed behaviour  (LBS v6.1, §4.2k)  -- set side first
+% ---------------------------------------------------------------------
+\ifdigital
+  % DIGITAL: one-sided, continuous, no blank pages.
+  \KOMAoptions{twoside=false}
+  \newcommand{\frontmatterclear}{\clearpage}
+\else
+  % PRINTED: two-sided; blank pages start parts on a right-hand (odd)
+  % page; the implicit blank pages carry no header/footer.
+  \KOMAoptions{twoside=true,cleardoublepage=empty}
+  \newcommand{\frontmatterclear}{\cleardoublepage}
+\fi
+
+% ---------------------------------------------------------------------
+%  Geometry  (loaded AFTER the side is fixed, so it overrides typearea)
+% ---------------------------------------------------------------------
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  top        = 30mm,   % top text margin 3.0 cm
+  left       = 25mm,   % left margin 2.5 cm
+  right      = 25mm,   % right margin 2.5 cm
+  bottom     = 20mm,   % bottom text margin 2.0 cm
+  headheight = 14pt,
+  headsep    = 16.5mm, % header baseline ~1.25 cm from the top edge
+  footskip   = 8.1mm   % page number baseline ~1.25 cm from the bottom edge
+}
+
+% ---------------------------------------------------------------------
+%  Header and footer  (LBS v6.1, §4.2k)
+% ---------------------------------------------------------------------
+%    Abridged title : top-outer corner (= top-right for digital).
+%    Page number    : outer side of the footer.
+\RequirePackage[autooneside=false]{scrlayer-scrpage}
+\clearpairofpagestyles
+
+\setkomafont{pagehead}{\normalfont\fontsize{9pt}{11pt}\selectfont}
+\setkomafont{pagefoot}{\normalfont\fontsize{9pt}{11pt}\selectfont}
+\setkomafont{pagenumber}{\normalfont\fontsize{9pt}{11pt}\selectfont}
+
+\ohead{\abridgedtitle}          % abridged title, outer top corner
+\ofoot*{\pagemark}              % page number, outer side of the footer
+
+% Keep the running header/footer on chapter-opening pages too.
+\renewcommand*{\chapterpagestyle}{scrheadings}
+\pagestyle{scrheadings}
+
+% ---------------------------------------------------------------------
+%  Table of contents  (display down to exactly three decimal levels)
+% ---------------------------------------------------------------------
+%    1      (\chapter)      numbered + in ToC
+%    1.1    (\section)      numbered + in ToC
+%    1.1.1  (\subsection)   numbered + in ToC
+%    deeper levels are neither numbered nor listed.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\RequirePackage{tocbasic}
+\BeforeStartingTOC[toc]{\singlespacing}
+\BeforeStartingTOC[lof]{\singlespacing\renewcommand\autodot{:}}
+\BeforeStartingTOC[lot]{\singlespacing\renewcommand\autodot{:}}
+
+\renewcaptionname{american}{\contentsname}{Table of contents}
+\renewcaptionname{american}{\listfigurename}{List of Figures}
+\renewcaptionname{american}{\listtablename}{List of Tables}
+
+% Bold chapter entries with a normal-weight page number; sections and
+% below already use normal weight by default.
+\setkomafont{chapterentry}{\normalfont\bfseries}
+\setkomafont{chapterentrypagenumber}{\normalfont}
+
+% ---------------------------------------------------------------------
+%  Front-matter / main-matter page numbering helpers
+% ---------------------------------------------------------------------
+%    Front matter (abstract, ToC) : small roman numerals (i, ii, ...).
+%    Main body                    : arabic numerals, restarting at 1.
+\newcommand{\beginfrontmatter}{%
+  \pagenumbering{roman}%
+  \setcounter{page}{1}%
+}
+\newcommand{\beginmainmatter}{%
+  \frontmatterclear
+  \pagenumbering{arabic}%
+  \setcounter{page}{1}%
+}
+
+% ---------------------------------------------------------------------
+%  Automatic body-chapter loader
+% ---------------------------------------------------------------------
+%  \inputbodychapters reads chapters/body/01.tex, 02.tex, 03.tex, ...
+%  in order and stops at the first missing number. Drop in the next
+%  numbered file and it is picked up automatically -- no edit to
+%  main.tex needed. (Works without shell-escape, e.g. on Overleaf.)
+\newcounter{ulibodychap}
+\newif\ifulimorechap
+\newcommand{\inputbodychapters}{%
+  \setcounter{ulibodychap}{1}%
+  \loop
+    \edef\ulibodyfile{chapters/body/\two@digits{\value{ulibodychap}}}%
+    \IfFileExists{\ulibodyfile.tex}%
+      {\input{\ulibodyfile}\stepcounter{ulibodychap}\ulimorechaptrue}%
+      {\ulimorechapfalse}%
+  \ifulimorechap\repeat
+}
+
+% ---------------------------------------------------------------------
+%  Auto-generated back-matter lists
+% ---------------------------------------------------------------------
+%  These wrappers keep main.tex tidy: each is a single clean command.
+
+% --- List of References ----------------------------------------------
+\newcommand{\makelistofreferences}{%
+  \addchap{List of References}%
+  \begin{singlespacing}%
+  \printbibliography[heading=none]%
+  \end{singlespacing}%
+}
+
+% --- List of Figures (description only; sources are excluded) ---------
+\newcommand{\makelistoffigures}{%
+  \addchap{List of Figures}%
+  \vspace{-1.5em}%
+  \begingroup
+  \renewcommand{\listfigurename}{}%
+  \listoffigures
+  \endgroup
+}
+
+% --- List of Tables (description only; sources are excluded) ----------
+\newcommand{\makelistoftables}{%
+  \addchap{List of Tables}%
+  \vspace{-1.5em}%
+  \begingroup
+  \renewcommand{\listtablename}{}%
+  \listoftables
+  \endgroup
+}
+
+% --- List of Abbreviations (sorted alphabetically) -------------------
+%  The \manualmark block fixes a header-mark conflict between longtable
+%  and the glossary, so the running header stays correct on this page.
+\newcommand{\makelistofabbreviations}{%
+  \clearpage
+  \manualmark
+  \markboth{List of Abbreviations}{List of Abbreviations}%
+  \addchap{List of Abbreviations}%
+  \markboth{List of Abbreviations}{List of Abbreviations}%
+  Commonly used and generally understood abbreviations such as
+  \enquote{e.g.}, \enquote{cf.}\ or \enquote{etc.}\ are not included in
+  the following list.\par
+  \vspace{0.3cm}%
+  \begingroup
+  \renewcommand*{\glossarysection}[2][]{}%
+  \printglossary[type=\acronymtype,style=long3col,title={},toctitle={},nonumberlist]%
+  \endgroup
+  \clearpage
+  \automark{chapter}%
+  \ihead{\headmark}%
+}
+
+\endinput

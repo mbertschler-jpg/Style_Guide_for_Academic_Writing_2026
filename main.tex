@@ -1,0 +1,84 @@
+% =====================================================================
+%  main.tex  --  COMPILATION ORCHESTRATOR
+% ---------------------------------------------------------------------
+%  University of Liechtenstein -- Liechtenstein Business School
+%  Academic paper template (Guidelines v6.1).
+%
+%  As a student you normally only:
+%    (1) fill in config.tex, acronyms.tex and the files in chapters/,
+%    (2) toggle the \input lines in the BODY and BACK-MATTER sections
+%        below on/off.
+%  Everything inside template_system/ is handled for you.
+%
+%  Build order (full run):   pdflatex -> biber -> makeglossaries -> pdflatex -> pdflatex
+%  See README.md for details.
+% =====================================================================
+\documentclass[
+  fontsize=11pt,              % body text 11 pt
+  numbers=noenddot,           % no trailing dot after section numbers
+  captions=tableabove,        % table captions above the table (APA)
+  toc=flat,                   % flat table-of-contents layout
+  toc=chapterentrywithdots,   % dotted leaders for chapter entries too
+  listof=entryprefix,         % "Table"/"Figure" prefix in the lists
+  listof=leveldown,           % lists one level below chapter
+  headsepline=false           % no rule under the header
+]{scrreprt}
+
+% ---- 1) Student configuration (metadata + switches) -----------------
+\input{config}
+
+% ---- 2) Internal architecture (do not edit) -------------------------
+\usepackage{template_system/typography}   % fonts, headings, spacing  (load 1st)
+\usepackage{template_system/packages}     % packages, captions, biblatex, glossaries
+\usepackage{template_system/layout}       % geometry, header/footer, ToC, lists
+\usepackage{template_system/titlepage}    % official title page
+
+% ---- 3) Resources ---------------------------------------------------
+\loadglsentries{acronyms}                 % abbreviations from acronyms.tex
+\addbibresource{references.bib}           % your bibliography database
+
+% =====================================================================
+\begin{document}
+
+% ---- TITLE PAGE -----------------------------------------------------
+\maketitlepageuli
+
+% ---- FRONT MATTER (small roman numerals: i, ii, ...) ----------------
+\frontmatterclear            % (printed) blank page after the title page
+\beginfrontmatter            % start roman numbering at i
+
+\input{chapters/abstract}
+
+\frontmatterclear
+\tableofcontents
+
+% ---- MAIN BODY (arabic numerals, restarting at 1) -------------------
+\beginmainmatter
+
+% Body chapters in chapters/body/ (01.tex, 02.tex, ...) are included
+% AUTOMATICALLY in order. To add a chapter, just drop in the next
+% numbered .tex file -- no edit needed here.
+\inputbodychapters
+
+% ---- BACK MATTER ----------------------------------------------------
+\frontmatterclear
+\makelistofreferences                 % List of References (auto)
+
+\frontmatterclear
+\input{chapters/list_of_aids}         % List of Aids (AI tools)
+
+\frontmatterclear
+\makelistoffigures                    % List of Figures (auto)
+
+\frontmatterclear
+\makelistoftables                     % List of Tables (auto)
+
+\makelistofabbreviations              % List of Abbreviations (auto, sorted)
+
+\frontmatterclear
+\input{chapters/appendix}             % Appendix
+
+\frontmatterclear
+\input{chapters/declaration}          % Declaration of Authorship
+
+\end{document}

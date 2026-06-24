@@ -1,0 +1,89 @@
+% =====================================================================
+%  config.tex  --  GLOBAL STUDENT CONFIGURATION
+% ---------------------------------------------------------------------
+%  This is the ONLY place where you enter your personal data and switch
+%  the document behaviour on/off. You do not need to touch anything
+%  inside the template_system/ folder.
+%
+%  Loaded by main.tex immediately after \documentclass, so every macro
+%  and boolean defined here is available to the whole template.
+% =====================================================================
+
+
+% ---------------------------------------------------------------------
+%  1) FORMATTING SWITCHES  (true / false)
+% ---------------------------------------------------------------------
+
+% --- Submission format -----------------------------------------------
+%  \digitaltrue  -> DIGITAL submission (Moodle).
+%                   Continuous layout, no blank pages, the abridged
+%                   title sits in the TOP-RIGHT corner.
+%  \digitalfalse -> PRINTED submission (two-sided).
+%                   A blank page is inserted after the title page so
+%                   that the main text starts on a right-hand page; the
+%                   abridged title sits in the TOP-OUTER corner.
+\newif\ifdigital
+\digitaltrue
+
+% --- Number of authors -----------------------------------------------
+%  \pluralfalse -> single author  (I / my / me).
+%  \pluraltrue  -> group paper    (We / our / us).
+%  Controls the pronouns in the Declaration of Authorship automatically.
+\newif\ifplural
+\pluralfalse
+
+% --- Optional title-page elements ------------------------------------
+\newif\ifshowsubtitle        \showsubtitletrue   % print the subtitle line
+\newif\ifshowprogramme       \showprogrammetrue  % print Programme / Module / Course
+\newif\ifshowgroupauthors    \showgroupauthorsfalse % print "names of all authors"
+\newif\ifshowsecondassessor  \showsecondassessorfalse % print a 2nd assessor
+\newif\ifshowsupervisors     \showsupervisorsfalse    % print additional supervisor(s)
+\newif\ifshowconfidentiality \showconfidentialityfalse % print confidentiality period
+
+
+% ---------------------------------------------------------------------
+%  2) DOCUMENT METADATA
+% ---------------------------------------------------------------------
+
+% --- Title -----------------------------------------------------------
+\newcommand{\thetitle}{[Title]}
+\newcommand{\thesubtitle}{[Subtitle]}
+
+% --- Abridged title (printed in the page header on every page) --------
+\newcommand{\abridgedtitle}{[Abridged title]}
+
+% --- Author(s) -------------------------------------------------------
+\newcommand{\mainauthor}{[First name Last name]}
+\newcommand{\studentid}{[Enrolment number]}
+\newcommand{\groupauthors}{[Names of all authors]} % only printed if \showgroupauthorstrue
+
+% --- Paper type and degree ------------------------------------------
+%  Paper type, e.g.: Seminar paper / Exposé of the Bachelor's thesis /
+%  Bachelor's thesis / Master's thesis / Proposal for the doctoral
+%  thesis / Doctoral thesis.
+\newcommand{\papertype}{Master's thesis}
+%  Degree line printed after "to obtain the degree of":
+\newcommand{\degree}{Master of Science in [subject as per the Regulations]}
+
+% --- Institution and study programme ---------------------------------
+\newcommand{\university}{University of Liechtenstein}
+\newcommand{\programme}{[Programme]}
+\newcommand{\modulename}{[Module]}
+\newcommand{\course}{[Course]}
+
+% --- Assessors / supervisors ----------------------------------------
+\newcommand{\assessorone}{[Title First name Last name]}
+\newcommand{\assessortwo}{[Title First name Last name]}
+\newcommand{\supervisors}{[Title First name Last name]}
+
+% --- Dates -----------------------------------------------------------
+\newcommand{\workingperiod}{DD/MM/YYYY to DD/MM/YYYY}
+\newcommand{\submissiondate}{DD/MM/YYYY}
+\newcommand{\confidentiality}{DD/MM/YYYY, approved on: DD/MM/YYYY}
+
+% --- Place and date for the Declaration of Authorship ----------------
+\newcommand{\placedate}{[Place], DD.MM.YYYY}
+
+% =====================================================================
+%  End of student configuration.
+% =====================================================================

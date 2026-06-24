@@ -1,0 +1,37 @@
+% =====================================================================
+%  acronyms.tex  --  CENTRALISED LIST OF ABBREVIATIONS
+% ---------------------------------------------------------------------
+%  Define every abbreviation ONCE here, then use it anywhere in the text
+%  (see the cheat-sheet below). The "List of Abbreviations" at the end of
+%  the document is generated automatically from these entries and is
+%  sorted alphabetically.
+%
+%  Syntax:
+%     \newacronym{key}{short}{long}
+%
+%  In-text usage:
+%     \gls{key}      -> first use prints  "Long form (SHORT)",
+%                       every later use prints just "SHORT".
+%     \acrshort{key} -> always the short form (SHORT).
+%     \acrlong{key}  -> always the long form.
+%     \acrfull{key}  -> always "Long form (SHORT)".
+%     \glspl{key}    -> plural ("SHORTs"), first use "Long forms (SHORTs)".
+%
+%  Do NOT list day-to-day abbreviations that every reader understands,
+%  such as "e.g.", "cf." or "etc." -- the guidelines require these to be
+%  omitted from the List of Abbreviations.
+% =====================================================================
+
+% ---- Example entries (replace with your own) ------------------------
+\newacronym{eps}{EPS}{Earnings per Share}
+\newacronym{roi}{ROI}{Return on Investment}
+\newacronym{sme}{SME}{Small and Medium-sized Enterprise}
+\newacronym{esg}{ESG}{Environmental, Social and Governance}
+\newacronym{ai}{AI}{Artificial Intelligence}
+
+% ---- Used by tables/table_01_return_summary_statistics.tex ----------
+\newacronym{BTC}{BTC}{Bitcoin}
+\newacronym{ETH}{ETH}{Ethereum}
+\newacronym{USDT}{USDT}{Tether}
+\newacronym{USDC}{USDC}{USD Coin}
+\newacronym{T-bill}{T-bill}{Treasury bill}

@@ -1,0 +1,149 @@
+% =====================================================================
+%  template_system/packages.sty
+% ---------------------------------------------------------------------
+%  Central package management: graphics & tables, caption setup,
+%  bibliography (biblatex/APA), hyperref, glossaries (acronyms) and
+%  custom column types.
+%  Loaded AFTER typography.sty (fonts) and BEFORE layout.sty.
+%  STUDENTS DO NOT NEED TO EDIT THIS FILE.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{template_system/packages}[2026/01/01 ULI packages]
+
+% ---------------------------------------------------------------------
+%  Language and quotation
+% ---------------------------------------------------------------------
+\RequirePackage[american]{babel}
+\RequirePackage{csquotes}
+
+% ---------------------------------------------------------------------
+%  Graphics, floats and tables
+% ---------------------------------------------------------------------
+\RequirePackage{graphicx}
+\graphicspath{{figures/}{tables/}{template_system/assets/}}
+\RequirePackage{float}
+\RequirePackage{subcaption}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{ltablex}
+\RequirePackage{adjustbox}
+\RequirePackage{ragged2e}
+\RequirePackage{enumitem}
+\RequirePackage{pdflscape}
+\RequirePackage{xcolor}
+\RequirePackage{etoolbox}
+\RequirePackage{eso-pic}
+
+% --- Custom column types (fixed-width, ragged / centred) -------------
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+
+% ---------------------------------------------------------------------
+%  Captions (APA 7 style) for tables and figures
+% ---------------------------------------------------------------------
+%  Caption  = bold label + italic text, set in the same font/size as the
+%             body. Captions go ABOVE the asset.
+%  Only the caption text is written to the List of Figures / List of
+%  Tables -- never the source line (see \source below).
+\RequirePackage{caption}
+\RequirePackage{chngcntr}
+
+\DeclareCaptionFormat{apa}{#1#2\par\itshape #3}
+\captionsetup{
+  format            = apa,
+  justification     = raggedright,
+  singlelinecheck   = false,
+  labelsep          = none,      % label on its own line, then italic title
+  labelfont         = bf,
+  textfont          = it
+}
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=top}
+
+\renewcommand{\tablename}{Table}
+\renewcommand{\figurename}{Figure}
+
+% --- \source{...} ----------------------------------------------------
+%  Source reference on its OWN line directly underneath the asset.
+%  Implemented as a starred caption, so it never appears in the List of
+%  Figures / List of Tables. Place it after the tabular / graphic.
+\newcommand{\source}[1]{%
+  {\captionsetup{
+      format          = plain,
+      justification   = raggedright,
+      singlelinecheck = false,
+      labelfont       = normal,
+      textfont        = normal}%
+   \caption*{\textit{Source.}\ \normalfont #1}}%
+}
+
+% --- \apanote{...} ---------------------------------------------------
+%  APA "Note." line underneath an asset (also excluded from the lists).
+\newcommand{\apanote}[1]{%
+  {\captionsetup{
+      format          = plain,
+      justification   = justified,
+      singlelinecheck = false,
+      labelfont       = normal,
+      textfont        = normal}%
+   \caption*{\textit{Note.}\ \normalfont #1}}%
+}
+
+% ---------------------------------------------------------------------
+%  Bibliography -- biblatex with APA 7 style, biber backend
+% ---------------------------------------------------------------------
+\RequirePackage[
+  style   = apa,
+  natbib  = true,
+  sorting = nyt,
+  backend = biber
+]{biblatex}
+
+% Compact citation delimiters (e.g. "(Smith, 2020, p. 12)")
+\DeclareDelimFormat{nameyeardelim}{\addcomma\addspace}
+\renewcommand*{\prenotedelim}{\addnbspace}
+\renewcommand*{\postnotedelim}{\addcomma\addnbspace}
+\renewcommand*{\multicitedelim}{\addsemicolon\addspace}
+
+% Resolve the bibliography database from main.tex (\addbibresource).
+
+% ---------------------------------------------------------------------
+%  Hyperlinks (black, so they print cleanly)
+% ---------------------------------------------------------------------
+\RequirePackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = black,
+  urlcolor   = black,
+  citecolor  = black,
+  pdfborder  = {0 0 0}
+}
+
+% ---------------------------------------------------------------------
+%  Glossaries / Acronyms  (loaded AFTER hyperref)
+% ---------------------------------------------------------------------
+%  acronym      -> enable the acronym mechanism
+%  nonumberlist -> do not print back-references in the list
+%  nopostdot    -> no trailing dot after each entry
+%  Entries are sorted alphabetically by makeglossaries.
+\RequirePackage[acronym,nonumberlist,nopostdot,toc=false]{glossaries}
+\setacronymstyle{long-short}
+\makeglossaries
+
+\setglossarystyle{long3col}
+\setlength{\glsdescwidth}{0.8\textwidth}
+\renewcommand*{\acronymfont}[1]{\textbf{#1}}
+\renewcommand*{\glsnamefont}[1]{\textbf{#1}}
+
+% --- Convenience cross-reference commands ----------------------------
+%  Encourage dynamic referencing. ALWAYS write \figref{key}/\tabref{key}
+%  instead of phrases such as "the following figure" or "the table below".
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+
+\endinput

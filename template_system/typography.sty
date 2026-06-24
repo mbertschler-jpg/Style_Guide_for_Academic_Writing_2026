@@ -1,0 +1,82 @@
+% =====================================================================
+%  template_system/typography.sty
+% ---------------------------------------------------------------------
+%  Fonts, heading layout, footnote size and paragraph spacing.
+%  Loaded FIRST (before hyperref) so the Times font is active everywhere.
+%
+%  Guideline reference (LBS v6.1, §4.2):
+%    - Font:        Times New Roman (here: the newtx Times clone).
+%    - Headings:    12 pt, bold (and/or italic).
+%    - Body text:   11 pt, paragraph spacing before 6 pt.
+%    - Footnotes:   9 pt.
+%    - Colour:      black.
+%  STUDENTS DO NOT NEED TO EDIT THIS FILE.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{template_system/typography}[2026/01/01 ULI typography]
+
+% ---------------------------------------------------------------------
+%  Encoding and Times-New-Roman-compatible font
+% ---------------------------------------------------------------------
+%  newtx is a modern, actively maintained Times clone for pdfLaTeX and
+%  is the recommended way to obtain "Times New Roman" output. It is NOT
+%  a deprecated package (unlike the old "times"/"mathptmx" packages).
+%  amsmath is loaded here because newtxmath expects it beforehand.
+\RequirePackage{amsmath}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{newtxtext,newtxmath}
+
+% ---------------------------------------------------------------------
+%  Global line spacing (1.2) and paragraph behaviour
+% ---------------------------------------------------------------------
+\RequirePackage{setspace}
+\setstretch{1.2}                 % 1.2 line spacing throughout
+
+\setlength{\parindent}{0pt}      % no first-line indent ...
+\setlength{\parskip}{6pt}        % ... 6 pt spacing before each paragraph
+
+% ---------------------------------------------------------------------
+%  Footnotes: Times New Roman, 9 pt
+% ---------------------------------------------------------------------
+\renewcommand{\footnotesize}{\fontsize{9pt}{11pt}\selectfont}
+\deffootnote[1em]{1em}{1em}{\textsuperscript{\thefootnotemark}\,}
+
+% ---------------------------------------------------------------------
+%  Headings: 12 pt bold, consistent spacing on all levels
+% ---------------------------------------------------------------------
+%  scrreprt heading levels map onto the decimal system as:
+%     \chapter        -> 1
+%     \section        -> 1.1
+%     \subsection     -> 1.1.1
+%  (Display depth is capped at three decimal levels in layout.sty.)
+\setkomafont{disposition}{\normalfont\bfseries}
+
+\RedeclareSectionCommand[
+  beforeskip=0pt,
+  afterskip=\dimexpr\parskip-8pt\relax,
+  afterindent=false,
+  font=\normalfont\fontsize{12pt}{14pt}\selectfont\bfseries
+]{chapter}
+
+\RedeclareSectionCommand[
+  beforeskip=16pt,
+  afterskip=\dimexpr\parskip-5pt\relax,
+  afterindent=false,
+  font=\normalfont\fontsize{12pt}{14pt}\selectfont\bfseries
+]{section}
+
+\RedeclareSectionCommand[
+  beforeskip=16pt,
+  afterskip=\dimexpr\parskip-5pt\relax,
+  afterindent=false,
+  font=\normalfont\fontsize{12pt}{14pt}\selectfont\bfseries
+]{subsection}
+
+\RedeclareSectionCommand[
+  beforeskip=16pt,
+  afterskip=\dimexpr\parskip-5pt\relax,
+  afterindent=false,
+  font=\normalfont\fontsize{12pt}{14pt}\selectfont\bfseries
+]{subsubsection}
+
+\endinput

@@ -1,0 +1,85 @@
+% =====================================================================
+%  template_system/titlepage.sty
+% ---------------------------------------------------------------------
+%  The official University of Liechtenstein title page (LBS v6.1,
+%  Appendix B) plus the logo placement command. Builds itself entirely
+%  from the metadata and switches defined in config.tex via the single
+%  command \maketitlepageuli.
+%  STUDENTS DO NOT NEED TO EDIT THIS FILE.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{template_system/titlepage}[2026/01/01 ULI title page]
+
+% ---------------------------------------------------------------------
+%  Logo  (top-left corner of the title page only, LBS v6.1 §4.3)
+% ---------------------------------------------------------------------
+\newcommand{\printlogo}{%
+  \AddToShipoutPictureBG*{%
+    \AtStockUpperLeft{%
+      \raisebox{-2.5cm}{%
+        \hspace{2.5cm}%
+        \includegraphics[keepaspectratio=true,width=0.33\pdfpagewidth]%
+          {template_system/assets/unili_logo.jpg}%
+      }%
+    }%
+  }%
+}
+
+% ---------------------------------------------------------------------
+%  Title page
+% ---------------------------------------------------------------------
+\newcommand{\maketitlepageuli}{%
+\begin{titlepage}
+\printlogo
+\begin{center}
+\setlength{\parskip}{0pt}%   keep the title page on a single page
+\setlength{\parindent}{0pt}%
+\vspace*{0.8cm}
+
+% --- Title / subtitle ---------------------------------------------
+{\large\bfseries \thetitle\par}
+\ifshowsubtitle
+  \vspace{0.4cm}
+  {\large\bfseries \thesubtitle\par}
+\fi
+\vspace{1.5cm}
+
+% --- Author block --------------------------------------------------
+\mainauthor\par
+\studentid\par
+\ifshowgroupauthors \groupauthors\par \fi
+\vspace{1.3cm}
+
+% --- Paper type and degree ----------------------------------------
+\papertype\par
+\vspace{0.5cm}
+to obtain the degree of\par
+\degree\par
+\vspace{1.8cm}
+
+% --- Institution and study programme ------------------------------
+\university\par
+\ifshowprogramme
+  \vspace{0.4cm}
+  Programme: \programme\par
+  Module: \modulename\par
+  Course: \course\par
+\fi
+\vspace{0.5cm}
+
+% --- Assessors / supervisors --------------------------------------
+Assessor: \assessorone\par
+\ifshowsecondassessor Assessor: \assessortwo\par \fi
+\ifshowsupervisors (any additional) Supervisor(s): \supervisors\par \fi
+\vspace{1.6cm}
+
+% --- Dates ---------------------------------------------------------
+Working period: \workingperiod\par
+Date of submission: \submissiondate\par
+\ifshowconfidentiality End of confidentiality period: \confidentiality\par \fi
+
+\end{center}
+\end{titlepage}%
+}
+
+\endinput
