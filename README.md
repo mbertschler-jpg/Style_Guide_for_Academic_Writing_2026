@@ -3,7 +3,7 @@
 A clean, modular LaTeX template for academic papers at the **Liechtenstein
 Business School**, built to the *Guidelines for Writing Academic Papers*,
 **Version 6.1** (valid from 01/09/2024).
-Official guidelines: <https://www.uni.li> (Study Services / LBS).
+Official guidelines: https://www.uni.li/en/university/services-and-support/legal-resources?id=255.67 (Study Services / LBS).
 
 ---
 
